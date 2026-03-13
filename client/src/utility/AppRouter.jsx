@@ -1,17 +1,29 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-/* Import any screens as needed. */
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import AppLayout from "../layout/AppLayout";
 
-const AppRouter = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<></>}/>
-                <Route path="" element={<></>}/>
-                <Route path="" element={<></>}/>
+import Login from "../screens/Login";
+import Dashboard from "../screens/Dashboard";
+import CarManagement from "../screens/CarManagement";
+import NotFoundScreen from "../screens/NotFoundScreen";
 
-                <Route path="*" element={<>404 Not Found</>}/>
-            </Routes>
-        </BrowserRouter>
-    );
-}
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+        // redirecting root to the login page
+        { path: "/", element: <Navigate to="/login" replace /> },
+
+        { path: "/dashboard", element: <Dashboard/> },
+        { path: "/cars", element: <CarManagement/> },
+
+        // 404 inside layout
+        { path: "*", element: <NotFoundScreen /> },
+    ],
+  },
+  // routes without layout
+  { path: "/login", element: <Login /> },
+  // global 404
+  { path: "*", element: <NotFoundScreen /> },
+]);
+
+export default router;
