@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
+import AuthorizeCheck from "../components/AuthorizeCheck";
 
 import Login from "../screens/Login";
 import Dashboard from "../screens/Dashboard";
@@ -13,8 +14,22 @@ const router = createBrowserRouter([
         // redirecting root to the login page
         { path: "/", element: <Navigate to="/login" replace /> },
 
-        { path: "/dashboard", element: <Dashboard/> },
-        { path: "/cars", element: <CarManagement/> },
+        { 
+          path: "/dashboard", 
+          element: (
+            <AuthorizeCheck>
+              <Dashboard/>
+            </AuthorizeCheck>
+          ) 
+        },
+        { 
+          path: "/cars", 
+          element: (
+            <AuthorizeCheck>
+              <CarManagement/>
+            </AuthorizeCheck>
+          ) 
+        },
 
         // 404 inside layout
         { path: "*", element: <NotFoundScreen /> },
