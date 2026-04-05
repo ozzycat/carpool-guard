@@ -3,6 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
 
 export default function Dashboard() {
+    const [isDismissal, setIsDismissal] = React.useState(false);
+    const [selectedRow, setSelectedRow] = React.useState([]);
 
     const columns = [
         { field: 'name', headerName: 'Product Name', width: 200 },
