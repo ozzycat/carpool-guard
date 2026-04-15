@@ -2,10 +2,10 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import AuthorizeCheck from "../components/AuthorizeCheck";
 
-import Login from "../screens/Login";
-import Dashboard from "../screens/Dashboard";
-import CarManagement from "../screens/CarManagement";
-import NotFoundScreen from "../screens/NotFoundScreen";
+import Login from "../screens/Login/Login";
+import Dashboard from "../screens/Dashboard/Dashboard";
+import CarManagement from "../screens/CarManagement/CarManagement";
+import NotFoundScreen from "../screens/NotFound/NotFoundScreen";
 
 const router = createBrowserRouter([
   {
