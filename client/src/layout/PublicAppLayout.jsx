@@ -1,17 +1,14 @@
-import { Outlet } from "react-router-dom";
-import Container from "@mui/material/Container";
-import { Paper } from "@mui/material";
 import AppFooter from "./AppFooter";
+import { Outlet } from "react-router-dom";
 
-export default function AppLayout() {
+export default function PublicAppLayout() {
     return (
         <div className="app-container">
             <div className="app-body">
                 <main className="app-content">
-                    <Outlet/>
+                    <Outlet />
                 </main>
             </div>
-
             <AppFooter />
         </div>
     );

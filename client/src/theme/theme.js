@@ -27,6 +27,15 @@ const theme = createTheme({
     "0px 4px 6px rgba(0,0,0,0.35)",
     // add more as needed
   ],
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        ":root": {
+          "--mui-divider-color": "rgba(255, 255, 255, 0.12)",
+        },
+      },
+    },
+  },
 });
 
 export default theme;
