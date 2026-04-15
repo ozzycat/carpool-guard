@@ -1,17 +1,44 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-/* Import any screens as needed. */
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import AppLayout from "../layout/AppLayout";
+import AuthorizeCheck from "../components/AuthorizeCheck";
 
-const AppRouter = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<></>}/>
-                <Route path="" element={<></>}/>
-                <Route path="" element={<></>}/>
+import Login from "../screens/Login/Login";
+import Dashboard from "../screens/Dashboard/Dashboard";
+import CarManagement from "../screens/CarManagement/CarManagement";
+import NotFoundScreen from "../screens/NotFound/NotFoundScreen";
 
-                <Route path="*" element={<>404 Not Found</>}/>
-            </Routes>
-        </BrowserRouter>
-    );
-}
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+        // redirecting root to the login page
+        { path: "/", element: <Navigate to="/login" replace /> },
+
+        { 
+          path: "/dashboard", 
+          element: (
+            <AuthorizeCheck>
+              <Dashboard/>
+            </AuthorizeCheck>
+          ) 
+        },
+        { 
+          path: "/cars", 
+          element: (
+            <AuthorizeCheck>
+              <CarManagement/>
+            </AuthorizeCheck>
+          ) 
+        },
+
+        // 404 inside layout
+        { path: "*", element: <NotFoundScreen /> },
+    ],
+  },
+  // routes without layout
+  { path: "/login", element: <Login /> },
+  // global 404
+  { path: "*", element: <NotFoundScreen /> },
+]);
+
+export default router;

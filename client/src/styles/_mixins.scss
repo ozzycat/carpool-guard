@@ -1,0 +1,32 @@
+// Allows the reuse of certain logic
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin surface($shadow: $shadow-1) {
+  background-color: $color-bg-paper;
+  box-shadow: $shadow;
+  border-radius: $radius;
+}
+
+@mixin hover-brighten($amount: 5%) {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: lighten($color-bg-paper, $amount);
+  }
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 600px) { @content; }
+  }
+  @else if $breakpoint == md {
+    @media (min-width: 900px) { @content; }
+  }
+  @else if $breakpoint == lg {
+    @media (min-width: 1200px) { @content; }
+  }
+}

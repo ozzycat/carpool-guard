@@ -1,0 +1,22 @@
+// Define colors, spacing, fonts, breakpoints, etc.
+
+$color-primary: var(--color-primary);
+$color-secondary: var(--color-secondary);
+
+$color-bg-default: var(--color-bg-default);
+$color-bg-paper: var(--color-bg-paper);
+
+$color-text-primary: var(--color-text-primary);
+$color-text-secondary: var(--color-text-secondary);
+
+$radius: var(--radius);
+
+$shadow-1: var(--shadow-1);
+$shadow-2: var(--shadow-2);
+
+// Spacing scale (Sass-only)
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 24px;
