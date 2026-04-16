@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 
 export default function PublicAppLayout() {
     return (
-        <div className="app-container">
-            <div className="app-body">
-                <main className="app-content">
+        <div className="login-app-container">
+            <div className="login-app-body">
+                <main className="login-app-content">
                     <Outlet />
                 </main>
             </div>

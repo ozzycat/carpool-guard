@@ -1,4 +1,32 @@
+/* Styling for login screen mainly */
+.login-app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-app-body {
+    flex: 1; /* pushing footer to the bottom :) */
+    display: flex;
+    flex-direction: column;
+}
+
+.login-app-content {
+    flex: 1; /* content fills available space */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for main application layout */
+.app-footer {
+    padding: 1rem;
+    text-align: center;
+    opacity: 0.7;
+    border-top: 1px solid var(--mui-divider-color); // MUI-friendly
+}
+
 .app-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -8,17 +36,13 @@
     flex: 1; /* pushing footer to the bottom :) */
     display: flex;
     flex-direction: column;
+    width: 80%;
+    margin: 0 auto; /* center the content */
+    padding: 2rem 0;
 }
 
 .app-content {
     flex: 1; /* content fills available space */
     display: flex;
     flex-direction: column;
-}
-
-.app-footer {
-    padding: 1rem;
-    text-align: center;
-    opacity: 0.7;
-    border-top: 1px solid var(--mui-divider-color); // MUI-friendly
 }

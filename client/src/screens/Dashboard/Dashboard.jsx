@@ -1,3 +1,4 @@
+import React from "react";
 import Paper from "@mui/material/Paper";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
@@ -7,13 +8,15 @@ export default function Dashboard() {
     const [selectedRow, setSelectedRow] = React.useState([]);
 
     const columns = [
-        { field: 'name', headerName: 'Product Name', width: 200 },
-        { field: 'description', headerName: 'Description', width: 300 },
+        { field: 'position', headerName: '# in Line', width: 80 },
+        { field: 'isAuthorized', headerName: 'Authorized', width: 80 },
+        { field: 'car', headerName: 'Vehicle', width: 200 },
+        { field: 'students', headerName: 'Students', width: 300 },
     ];
 
     const rows = [
-        { id: 1, name: 'Product A', description: 'Description of Product A' },
-        { id: 2, name: 'Product B', description: 'Description of Product B' },
+        { id: 1, position: 1, isAuthorized: false, car: '', students: '' },
+        { id: 2, position: 2, isAuthorized: true, car: 'Toyota Camry', students: 'John Doe, Jane Smith' },
     ];
 
     return (
