@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
+import { LayoutProvider } from "../layout/context/LayoutContext";
 import AuthorizeCheck from "../components/AuthorizeCheck";
 import PublicAppLayout from "../layout/PublicAppLayout";
 import Login from "../screens/Login/Login";

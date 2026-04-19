@@ -46,3 +46,29 @@
     display: flex;
     flex-direction: column;
 }
+
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: var(--color-bg-default);
+    color: var(--color-text-primary);
+}
+
+.layout-sidebar {
+    width: 250px;
+    transition: transform 0.3s ease;
+}
+
+.layout-static-inactive .layout-sidebar {
+    transform: translateX(-100%);
+}
+
+.layout-overlay-active .layout-sidebar {
+    position: fixed;
+    transform: translateX(0);
+}
+
+.layout-mobile-active .layout-sidebar {
+    position: fixed;
+    transform: translateX(0);
+}

@@ -3,6 +3,8 @@ import { RouterProvider } from "react-router-dom";
 import router from "./utility/AppRouter";
 import theme from "./theme/theme";
 import "./styles/global.scss";
+import { LayoutProvider } from "./layout/context/LayoutContext";
+import { MenuProvider } from "./layout/context/MenuContext";
 
 function ThemeVariables() {
   const theme = useTheme();
@@ -32,7 +34,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ThemeVariables />
-      <RouterProvider router={router} />
+
+      <LayoutProvider>
+        <MenuProvider>
+          <RouterProvider router={router} />
+        </MenuProvider>
+      </LayoutProvider>
     </ThemeProvider>
   );
 }
