@@ -57,10 +57,24 @@
 .layout-sidebar {
     width: 250px;
     transition: transform 0.3s ease;
+    background: var(--color-bg-paper);
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
 }
 
 .layout-static-inactive .layout-sidebar {
     transform: translateX(-100%);
+}
+
+.layout-overlay-active .layout-sidebar, .layout-mobile-active .layout-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(0);
+    z-index: 1000;
 }
 
 .layout-overlay-active .layout-sidebar {
@@ -71,4 +85,78 @@
 .layout-mobile-active .layout-sidebar {
     position: fixed;
     transform: translateX(0);
+}
+
+/* Topbar styling */
+.layout-topbar {
+    height: 60px;
+    background: var(--color-bg-paper);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--mui-divider-color);
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.layout-topbar-logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+
+.layout-topbar-menu-button {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.layout-topbar-button:hover {
+    background: var(--color-bg-hover);
+}
+
+/* Sidebar styling */
+.layout-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.layout-menu li {
+    margin: 0;
+}
+
+.layout-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-size: 0.95rem;
+    border-radius: 6px;
+}
+
+.layout-menu-link i {
+    font-size: 1.25rem;
+}
+
+.layout-menu-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-primary-main);
+}
+
+.active-menu-link {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--color-primary-main);
+    font-weight: 500;
 }
