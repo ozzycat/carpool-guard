@@ -30,6 +30,8 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    padding-top: 60px; /* space for topbar */
+    transition: margin-left 0.3s ease;
 }
 
 .app-body {
@@ -49,19 +51,25 @@
 
 .layout-wrapper {
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     background: var(--color-bg-default);
     color: var(--color-text-primary);
 }
 
 .layout-sidebar {
-    width: 250px;
+    width: 340px;
+    height: calc(100vh - 60px);
     transition: transform 0.3s ease;
     background: var(--color-bg-paper);
     padding: 1rem 0;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    position: fixed;
+    overflow-y: auto;
+    top: 60px;
+    left: 0;
 }
 
 .layout-static-inactive .layout-sidebar {
@@ -70,9 +78,9 @@
 
 .layout-overlay-active .layout-sidebar, .layout-mobile-active .layout-sidebar {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
-    height: 100%;
+    height: calc(100vh - 60px);
     transform: translateX(0);
     z-index: 1000;
 }
@@ -99,6 +107,7 @@
     position: sticky;
     top: 0;
     z-index: 900;
+    width: 100%;
 }
 
 .layout-topbar-logo {
@@ -131,32 +140,79 @@
 }
 
 .layout-menu li {
-    margin: 0;
+    margin-bottom: 0.25rem;
 }
 
-.layout-menu-link {
+.layout-menu-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1.5rem;
+
+    // colors
     color: var(--color-text-primary);
+    background: transparent;
+
+    // removing link styling
     text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+
+    // typography
     font-size: 0.95rem;
+    letter-spacing: 0.2px; // better readability
+
+    // shape, feel
     border-radius: 6px;
+    border-left: 3px solid transparent;
+
+    // transitions
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease;
 }
 
-.layout-menu-link i {
+.layout-menu-item-link {
+    text-decoration: none;
+}
+
+// removing the default purple for visited links because it's annoying
+.layout-menu-item-link:visited {
+    color: var(--color-text-primary);
+}
+
+
+.layout-menu-item-link:active {
+    text-decoration: none;
+}
+
+.layout-menu-item-link i {
     font-size: 1.25rem;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
 }
 
-.layout-menu-link:hover {
+.layout-menu-item-link:hover {
     background: rgba(255, 255, 255, 0.08);
     color: var(--color-primary-main);
+    border-left-color: var(--color-primary-main);
+}
+
+.layout-menu-item-link:hover i {
+    opacity: 1;
 }
 
 .active-menu-link {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.18);
     color: var(--color-primary-main);
-    font-weight: 500;
+    font-weight: 600;
+    border-left-color: var(--color-primary-main);
+}
+
+.active-menu-link i {
+    opacity: 1;
+}
+
+.layout-wrapper:not(.layout-static-inactive) .app-container {
+    margin-left: 340px;
+}
+
+.layout-static-inactive .app-container {
+    margin-left: 0;
 }

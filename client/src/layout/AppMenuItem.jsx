@@ -9,8 +9,8 @@ const AppMenuItem = ({ item, activeMenu, setActiveMenu }) => {
     }
 
     return (
-        <li className={`layout-menuitem ${isActive ? "active" : ""}`}>
-            <NavLink to={item.to} className={`layout-menuitem-link ${isActive ? "active" : ""}`} onClick={handleClick}>
+        <li className={`layout-menu-item ${isActive ? "active" : ""}`}>
+            <NavLink to={item.to} className={`layout-menu-item-link`} onClick={handleClick}>
                 <i className={item.icon}/>
                 <span>{item.label}</span>
             </NavLink>
