@@ -1,11 +1,26 @@
-import React from "react";
+import * as React from "react";
 import Paper from "@mui/material/Paper";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Dashboard() {
     const [isDismissal, setIsDismissal] = React.useState(false);
     const [selectedRow, setSelectedRow] = React.useState([]);
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    }
+
+    const handleClose = () => {
+        setSelectedRow([]); // clear row selected when dialog closes
+        setOpenDialog(false);
+    }
 
     const columns = [
         { field: 'position', headerName: '# in Line', width: 80 },
@@ -26,6 +41,21 @@ export default function Dashboard() {
                     <DataGrid columns={columns} rows={rows} />
                 </Box>      
             </Paper>
+            <Dialog
+                open={openDialog}
+                onClose={handleClose}
+                role="dialog"
+            >
+                <DialogTitle>
+                    {"Vehicle Information"}
+                </DialogTitle>
+                <DialogContent>
+
+                </DialogContent>
+                <DialogContent>
+
+                </DialogContent>
+            </Dialog>
         </>
     );
 }
