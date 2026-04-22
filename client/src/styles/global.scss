@@ -1,0 +1,241 @@
+/* Styling for login screen mainly */
+.login-app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-app-body {
+    flex: 1; /* pushing footer to the bottom :) */
+    display: flex;
+    flex-direction: column;
+}
+
+.login-app-content {
+    flex: 1; /* content fills available space */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for main application layout */
+.app-footer {
+    padding: 1rem;
+    text-align: center;
+    opacity: 0.7;
+    border-top: 1px solid var(--mui-divider-color); // MUI-friendly
+}
+
+.app-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 60px; /* space for topbar */
+    transition: margin-left 0.3s ease;
+}
+
+.app-body {
+    flex: 1; /* pushing footer to the bottom :) */
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto; /* center the content */
+    padding: 2rem 0;
+}
+
+.app-content {
+    flex: 1; /* content fills available space */
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--color-bg-default);
+    color: var(--color-text-primary);
+}
+
+.layout-sidebar {
+    width: 340px;
+    height: calc(100vh - 60px);
+    transition: transform 0.3s ease;
+    background: var(--color-bg-paper);
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    position: fixed;
+    overflow-y: auto;
+    top: 60px;
+    left: 0;
+}
+
+.layout-static-inactive .layout-sidebar {
+    transform: translateX(-100%);
+}
+
+.layout-overlay-active .layout-sidebar, .layout-mobile-active .layout-sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    transform: translateX(0);
+    z-index: 1000;
+}
+
+.layout-overlay-active .layout-sidebar {
+    position: fixed;
+    transform: translateX(0);
+}
+
+.layout-mobile-active .layout-sidebar {
+    position: fixed;
+    transform: translateX(0);
+}
+
+/* Topbar styling */
+.layout-topbar {
+    height: 60px;
+    background: var(--color-bg-paper);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--mui-divider-color);
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    width: 100%;
+}
+
+.layout-topbar-logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+
+.layout-topbar-menu-button {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.layout-topbar-button:hover {
+    background: var(--color-bg-hover);
+}
+
+.layout-topbar-signout-button {
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    transition: background 0.2s ease;
+}
+
+.layout-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.layout-topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Sidebar styling */
+.layout-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.layout-menu li {
+    margin-bottom: 0.25rem;
+}
+
+.layout-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+
+    // colors
+    color: var(--color-text-primary);
+    background: transparent;
+
+    // removing link styling
+    text-decoration: none;
+
+    // typography
+    font-size: 0.95rem;
+    letter-spacing: 0.2px; // better readability
+
+    // shape, feel
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+
+    // transitions
+    transition: background 0.2s ease, color 0.2s ease, padding 0.2s ease;
+}
+
+.layout-menu-item-link {
+    text-decoration: none;
+}
+
+// removing the default purple for visited links because it's annoying
+.layout-menu-item-link:visited {
+    color: var(--color-text-primary);
+}
+
+
+.layout-menu-item-link:active {
+    text-decoration: none;
+}
+
+.layout-menu-item-link i {
+    font-size: 1.25rem;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.layout-menu-item-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-primary-main);
+    border-left-color: var(--color-primary-main);
+}
+
+.layout-menu-item-link:hover i {
+    opacity: 1;
+}
+
+.active-menu-link {
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--color-primary-main);
+    font-weight: 600;
+    border-left-color: var(--color-primary-main);
+}
+
+.active-menu-link i {
+    opacity: 1;
+}
+
+.layout-wrapper:not(.layout-static-inactive) .app-container {
+    margin-left: 340px;
+}
+
+.layout-static-inactive .app-container {
+    margin-left: 0;
+}
