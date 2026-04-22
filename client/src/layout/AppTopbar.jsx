@@ -17,21 +17,26 @@ const AppTopbar = forwardRef((props, ref) => {
 
     return (
         <div className="layout-topbar">
-            <Link to="/" className="layout-topbar-logo">
-                Carpool Guard
-            </Link>
+            <div className="layout-topbar-left">
+                <Link to="/" className="layout-topbar-logo">
+                    Carpool Guard
+                </Link>
 
-            <button ref={menuButtonRef} type="button" className="p-link layout-menu-button layout-topbar-button" onClick={onMenuToggle}>
-                <i className="pi pi-bars"/>               
-            </button>
-
-            <button ref={topbarMenuButtonRef} type="button" className="p-link layout-topbar-menu-button layout-topbar-button" onClick={showProfileSidebar}>
-                <i className="pi pi-user"/>
-            </button>
-
-            <div ref={topbarMenuRef} className="layout-topbar-menu">
-                <Button>Testing</Button>
+                <button ref={menuButtonRef} type="button" className="p-link layout-menu-button layout-topbar-button" onClick={onMenuToggle}>
+                    <i className="pi pi-bars"/>               
+                </button>
             </div>
+
+            <div className="layout-topbar-right">
+                <button ref={topbarMenuButtonRef} type="button" className="p-link layout-topbar-menu-button layout-topbar-button" onClick={showProfileSidebar}>
+                    <i className="pi pi-user"/>
+                </button>
+
+                <div ref={topbarMenuRef} className="layout-topbar-signout-button layout-topbar-button">
+                    <Button>Testing</Button>
+                </div>
+            </div>
+            
         </div>
     );
 });

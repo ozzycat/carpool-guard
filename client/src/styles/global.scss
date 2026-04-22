@@ -132,6 +132,29 @@
     background: var(--color-bg-hover);
 }
 
+.layout-topbar-signout-button {
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    transition: background 0.2s ease;
+}
+
+.layout-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.layout-topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 /* Sidebar styling */
 .layout-menu {
     list-style: none;
