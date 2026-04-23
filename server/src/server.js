@@ -1,9 +1,13 @@
+import './config/env.js';
+
 import Fastify from "fastify";
 import fastifyWebsocket from "@fastify/websocket";
 
 // import db modules
 import { getLiveCars, addCar } from "./db/liveCars.js";
 import { getCarInfo } from "./db/carInfo.js";
+// testing module
+import { testConnection } from "./db/testDB.js"
 
 const app = Fastify({ logger: true});
 
@@ -51,10 +55,20 @@ app.post("/api/plates", async (req, reply) => {
 app.get("/api/live-cars", async () => getLiveCars());
 
 // start server
-app.listen({ port: 8000 }, (err, address) => {
+app.listen({ port: 8000 }, async (err, address) => {
     if (err) {
         app.log.error(err);
         process.exit(1);
     }
+
+    testConnection()
+        .then(now => {
+            app.log.info(`Database connected successfully. Server time: ${now}`);
+        })
+        .catch(dbErr => {
+            console.log("Database connection failed:", dbErr);
+            process.exit(1);
+        });
+
     app.log.info(`Server running at ${address}`);
 });

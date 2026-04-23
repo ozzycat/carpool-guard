@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import CarCrashIcon from "@mui/icons-material/CarCrash";
 
 export default function Dashboard() {
     const [isDismissal, setIsDismissal] = React.useState(false);
