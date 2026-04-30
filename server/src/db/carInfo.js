@@ -8,6 +8,7 @@ const pool = new Pool({
 export async function getCarInfo(plate) {
     const client = await pool.connect(); // acquiring single db connection from connection pool. will wait if pool is full/busy.
 
+
     try {
         // determine if car exists
         const carRes = await client.query(); // have not populated test data yet. update later.
