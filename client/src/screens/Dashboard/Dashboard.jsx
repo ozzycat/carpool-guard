@@ -25,6 +25,25 @@ export default function Dashboard() {
         { id: 2, position: 2, plate: 'ABC123', isAuthorized: true, make: 'Toyota', model: 'Camry', color: 'White', students: ['Jane Doe'], drivers: ['John Doe'] },
     ]);
 
+    const [currentTime, setCurrentTime] = React.useState("");
+
+    React.useEffect(() => {
+        const update = () => {
+            const now = new Date();
+            setCurrentTime(
+                now.toLocaleString(undefined, {
+                dateStyle: "medium",
+                timeStyle: "short"   // no seconds
+                })
+            );
+        };
+
+        update(); // initial
+        const interval = setInterval(update, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     const handleRowSelect = (params) => {
         setSelectedRow({
             drivers: [],
@@ -96,25 +115,39 @@ export default function Dashboard() {
 
     return (
         <>
-            <Paper>
-                <div>
-                    <Button
-                        variant="contained"
+            <Box 
+                sx={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "center",
+                    mb: 2   // spacing below the header
+                }}
+            >
+                <Typography variant="h6">
+                    {currentTime}
+                </Typography>
+
+                <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button 
+                        variant="contained" 
                         color="success"
                         onClick={startDismissal}
                         disabled={isDismissal}
                     >
                         Start Dismissal
                     </Button>
-                    <Button
-                        variant="contained"
+
+                    <Button 
+                        variant="contained" 
                         color="error"
                         onClick={stopDismissal}
                         disabled={!isDismissal}
                     >
                         Stop Dismissal
                     </Button>
-                </div>
+                </Box>
+            </Box>
+            <Paper elevation={3}>
                 <Box sx={{ height: 400, width: '100%' }}>
                     <DataGrid columns={columns} rows={queue} onRowClick={handleRowSelect}/>
                 </Box>      
