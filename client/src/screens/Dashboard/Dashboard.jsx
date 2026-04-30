@@ -1,13 +1,15 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
 import { DataGrid } from '@mui/x-data-grid';
-import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import CarCrashIcon from "@mui/icons-material/CarCrash";
+import { 
+    Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogActions, 
+    Button, 
+    Box,
+    Paper
+} from "@mui/material";
 
 export default function Dashboard() {
     const [isDismissal, setIsDismissal] = React.useState(false);
@@ -39,7 +41,7 @@ export default function Dashboard() {
         <>
             <Paper>
                 <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid columns={columns} rows={rows} />
+                    <DataGrid columns={columns} rows={rows}/>
                 </Box>      
             </Paper>
             <Dialog
