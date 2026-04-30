@@ -26,6 +26,7 @@ export default function CarManagement() {
     const [editMode, setEditMode] = React.useState(false);
 
     const handleClose = () => {
+        console.log("Closing dialog..");
         setSelectedRow([]); // clear row selected when dialog closes
         setEditMode(false);
         setOpenDialog(false);
@@ -40,6 +41,21 @@ export default function CarManagement() {
         setEditMode(false);
         setOpenDialog(true);
     };
+
+    const handleSave = () => {
+        console.log("Saving changes to selected vehicle:", selectedRow);
+
+        // TODO: send updated selectedRow to backend
+
+        setEditMode(false);
+    }
+
+    const handleDelete = (row) => {
+        console.log("Deleting vehicle:", row.plate);
+
+        // TODO: call delete function from backend, then refresh data grid after successful deletion.
+        handleClose();
+    }
 
     // data
     const testCarRows = [
@@ -336,6 +352,9 @@ export default function CarManagement() {
                             <Button onClick={() => setEditMode(false)}>Cancel</Button>
                             <Button variant="contained" onClick={() => setEditMode(false)}>
                                 Save
+                            </Button>
+                            <Button color="error" onClick={() => handleDelete(selectedRow)}>
+                                Delete
                             </Button>
                         </>
                     ):(

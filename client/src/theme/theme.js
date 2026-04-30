@@ -21,12 +21,6 @@ const theme = createTheme({
   shape: {
     borderRadius: 8,
   },
-  shadows: [
-    "none",
-    "0px 1px 3px rgba(0,0,0,0.3)",
-    "0px 4px 6px rgba(0,0,0,0.35)",
-    // add more as needed
-  ],
   components: {
     MuiCssBaseline: {
       styleOverrides: {
