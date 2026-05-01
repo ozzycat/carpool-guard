@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid';
 import CarCrashIcon from "@mui/icons-material/CarCrash";
 import { 
@@ -20,10 +21,80 @@ export default function Dashboard() {
     const [isDismissal, setIsDismissal] = React.useState(false);
     const [selectedRow, setSelectedRow] = React.useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [queue, setQueue] = React.useState([
-        { id: 1, position: 1, plate: 'NOTAUT',isAuthorized: false, make: '', model: '', color: '', students: [] },
-        { id: 2, position: 2, plate: 'ABC123', isAuthorized: true, make: 'Toyota', model: 'Camry', color: 'White', students: ['Jane Doe'], drivers: ['John Doe'] },
-    ]);
+    const [queue, setQueue] = React.useState([]);
+
+    const [currentTime, setCurrentTime] = React.useState("");
+
+    React.useEffect(() => {
+        const ws = setupWebSocket();
+        return () => ws.close();
+    }, []);
+
+    React.useEffect(() => {
+        const interval = startClock();
+        return () => clearInterval(interval);
+    }, []);
+
+    React.useEffect(() => {
+        // check dismissal status on page load
+        loadDismissalStatus();
+    }, []);
+
+    function setupWebSocket() {
+        // set up a websocket
+        const ws = new WebSocket("ws://localhost:8000/ws");
+
+        ws.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+
+            if (msg.type === "queue_update") {
+                setQueue(msg.queue);
+            }
+        }
+
+        return ws;
+    }
+
+    function startClock() {
+        const update = () => {
+            const now = new Date();
+            setCurrentTime(
+            now.toLocaleString(undefined, {
+                dateStyle: "medium",
+                timeStyle: "short"
+            })
+            );
+        };
+
+        update();
+        return setInterval(update, 1000);
+    }
+
+
+    async function loadDismissalStatus() {
+        try {
+            const res = await axios.get("/api/dismissal-status");
+            const active = res.data.active;
+            setIsDismissal(active);
+
+            if (active) {
+                loadQueue();
+            }
+        } catch (err) {
+            console.error("Failed to load dismissal status:", err);
+        }
+    }
+
+    async function loadQueue() {
+        try {
+            const res = await axios.get("/api/queue");
+            setQueue(res.data);
+            console.log(res);
+        } catch (err) {
+            console.error("Failed to load queue:", err);
+            setQueue([]); // fail safe setting
+        }
+    }
 
     const handleRowSelect = (params) => {
         setSelectedRow({
@@ -40,13 +111,21 @@ export default function Dashboard() {
     }
 
     const startDismissal = async () => {
-        // TODO: send request to backend to start dismissal
-        setIsDismissal(true);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/start-dismissal`);
+            setIsDismissal(true);
+        } catch (err) {
+            console.error("Failed to start dismissal:", err);
+        }
     }
 
     const stopDismissal = async () => {
-        //TODO: send request to backend to stop dismissal
-        setIsDismissal(false);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/stop-dismissal`);
+            setIsDismissal(false);
+        } catch (err) {
+            console.error("Failed to stop dismissal:", err);
+        }
     }
 
     const handleDismiss = (row) => {
@@ -75,9 +154,14 @@ export default function Dashboard() {
                 return `${color} ${make} ${model}`.trim();
             }
         },
-        { field: 'students', headerName: 'Students', width: 300 },
+        { 
+            field: 'students',
+            headerName: 'Students',
+            width: 300 ,
+            valueGetter: (params) => params.row.students.join(", ")
+        },
         {
-            field: 'isAuthorized',
+            field: 'authorized',
             headerName: '',          // no header text
             width: 60,
             sortable: false,
@@ -96,27 +180,41 @@ export default function Dashboard() {
 
     return (
         <>
-            <Paper>
-                <div>
-                    <Button
-                        variant="contained"
+            <Box 
+                sx={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "center",
+                    mb: 2   // spacing below the header
+                }}
+            >
+                <Typography variant="h6">
+                    {currentTime}
+                </Typography>
+
+                <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button 
+                        variant="contained" 
                         color="success"
                         onClick={startDismissal}
                         disabled={isDismissal}
                     >
                         Start Dismissal
                     </Button>
-                    <Button
-                        variant="contained"
+
+                    <Button 
+                        variant="contained" 
                         color="error"
                         onClick={stopDismissal}
                         disabled={!isDismissal}
                     >
                         Stop Dismissal
                     </Button>
-                </div>
+                </Box>
+            </Box>
+            <Paper elevation={3}>
                 <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid columns={columns} rows={queue} onRowClick={handleRowSelect}/>
+                    <DataGrid columns={columns} rows={queue} getRowId={(row) => row.id} onRowClick={handleRowSelect}/>
                 </Box>      
             </Paper>
             <Dialog
