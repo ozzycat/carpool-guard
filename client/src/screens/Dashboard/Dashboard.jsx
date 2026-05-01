@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid';
 import CarCrashIcon from "@mui/icons-material/CarCrash";
 import { 
@@ -59,13 +60,21 @@ export default function Dashboard() {
     }
 
     const startDismissal = async () => {
-        // TODO: send request to backend to start dismissal
-        setIsDismissal(true);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/start-dismissal`);
+            setIsDismissal(true);
+        } catch (err) {
+            console.error("Failed to start dismissal:", err);
+        }
     }
 
     const stopDismissal = async () => {
-        //TODO: send request to backend to stop dismissal
-        setIsDismissal(false);
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/stop-dismissal`);
+            setIsDismissal(false);
+        } catch (err) {
+            console.error("Failed to stop dismissal:", err);
+        }
     }
 
     const handleDismiss = (row) => {
