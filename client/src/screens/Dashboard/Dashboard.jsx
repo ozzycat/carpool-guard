@@ -40,6 +40,67 @@ export default function Dashboard() {
         loadDismissalStatus();
     }, []);
 
+    React.useEffect(() => {
+  // TEMP DATA FOR SCREENSHOTS ONLY
+  setQueue([
+    {
+        plate: "ABC123",
+        id: "veh1",
+        position: 1,
+        make: "Honda",
+        model: "Civic",
+        color: "Blue",
+        drivers: ["James Smith"],
+        students: ["Ava Thompson"],
+        isAuthorized: true
+    },
+    {
+        plate: "DEF456",
+        id: "veh2",
+        position: 2,
+        make: "Toyota",
+        model: "RAV4",
+        color: "White",
+        drivers: ["Olivia Rodriguez"],
+        students: ["Liam Rodriguez", "Mia Rodriguez"],
+        isAuthorized: true   // will show the red CarCrashIcon
+    },
+    {
+        plate: "GHI789",
+        id: "veh3",
+        position: 3,
+        make: "Ford",
+        model: "F-150",
+        color: "Black",
+        drivers: ["William Johnson", "Mary Johnson"],
+        students: ["Noah Johnson"],
+        isAuthorized: false
+    },
+    {
+        plate: "JKL012",
+        id: "veh4",
+        position: 4,
+        make: "Tesla",
+        model: "Model 3",
+        color: "Red",
+        drivers: ["Emma Martinez"],
+        students: ["Sophia Martinez"],
+        isAuthorized: true
+    },
+    {
+        plate: "XYZ789",
+        id: "veh5",
+        position: 5,
+        make: "Chevrolet",
+        model: "Equinox",
+        color: "Silver",
+        students: [],
+        isAuthorized: false
+    }
+  ]);
+}, []);
+
+
     function setupWebSocket() {
         // set up a websocket
         const ws = new WebSocket("ws://localhost:8000/ws");
@@ -69,7 +130,6 @@ export default function Dashboard() {
         update();
         return setInterval(update, 1000);
     }
-
 
     async function loadDismissalStatus() {
         try {
@@ -158,7 +218,11 @@ export default function Dashboard() {
             field: 'students',
             headerName: 'Students',
             width: 300 ,
-            valueGetter: (params) => params.row.students.join(", ")
+            valueGetter: (params) => {
+                const row = params?.row;
+                if (!row || !Array.isArray(row.students)) return "";
+                return row.students.join(", ");
+            }
         },
         {
             field: 'authorized',
